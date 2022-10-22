@@ -73,7 +73,7 @@
               <li><a class="dropdown-item" href="#">Project 4</a></li>
             </ul>
           </div>
-          <button class="btn px-5 text-light" type="button" style="background-color: var(--secondary);">Statistics</button>
+          <button class="btn px-5 text-light" type="button" style="background-color: var(--secondary);" onclick="gettingDataFromDB()">Statistics</button>
         </div>
         <div>
           <button class="btn px-5 text-light" type="button" style="background-color: var(--secondary);" onclick="addTask()">Add Task</button>
@@ -85,22 +85,6 @@
             <div class=" ps-0">
               <h6 class="p-3 text-light mb-0 text-center" style="background-color: var(--main-color);">To Do (<span id="to-do-counter">0</span>)</h6>
               <div class="scroll d-flex flex-column" id="to-do-parent">
-                <div class="task pb-2">
-                  <div class="card-task p-2" style="background-color: var(--card-color);">
-                   <div class="d-flex">
-                    <div class="d-flex justify-content-center align-middle p-2"><img src="./assets/img/icon-wait.png" style="width: 25px;height: 25px;" alt="icon-wait"></div>
-                    <div class="flex-fill p-2">
-                      <h6>Bla bla bla bla bla</h6>
-                      <p  class="mb-1">#1 Assigned at 22/10/2022</p>
-                      <p class="mb-1">There is hardly anything more frustrating than having ton in comments may affect initial criteria, just update this primary description accord</p>
-                    </div>
-                   </div>
-                   <div class="d-flex justify-content-end pe-2">
-                    <button class="px-4" id="type" style="background-color: var(--main-color) ; color: var(--secondary); border:none;  margin-left:5px;border-radius: 10px;" >Bug</button>
-                    <button class="bg-transparent px-4" id="priority" style="border: 2px var(--main-color) solid; margin-left:5px;border-radius: 10px; color:var(--main-color) ;">High</button>
-                  </div>  
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -125,53 +109,53 @@
       <div class="row w-75 m-auto">
         <div class="col">
           <h3 class="h3">Add Task</h3>
-          <form action="" name="form-task">
+          <form name="form-task" action="assets/php/process.php" method="POST" id="form">
             <p class="h5 text-danger" id="validation" style="transition: 0.5s;"></p>
             <div class="row">
               <div class="col-lg-6">
                 <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="taskTitle" required>
+                  <input type="text" class="form-control" id="taskTitle" name="title" required>
                   <label class="text-dark" for="taskTitle">Title *</label>
                 </div>
                 <label for="feature">Type *</label>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" id="feature" value="feature" name="feature">
-                  <label class="form-check-label" for="feature">
+                  <input class="form-check-input" type="radio" id="feature" value="feature" name="type">
+                  <label class="form-check-label" for="type">
                     Feature
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" name="bug" type="radio" id="bug" value="bug" >
-                  <label class="form-check-label" for="bug">
+                  <input class="form-check-input" type="radio" id="bug" name="type" value="bug" >
+                  <label class="form-check-label" for="type">
                     Bug
                   </label>
                 </div>
                 <label for="priorityField">Priority *</label>
-                <select class="form-select p-3" aria-label="Default select example" required id="priorityField" >
+                <select class="form-select p-3" aria-label="Default select example" required id="priorityField" name="priority">
                   <option class="h6 text-dark " value="High">High</option>
                   <option class="h6 text-dark" value="Medium">Medium</option>
                   <option class="h6 text-dark" value="Low">Low</option>
                   <option class="h6 text-dark" value="Critical">Critical</option>
                 </select>
                 <label for="statusField">Status *</label>
-                <select class="form-select p-3 text-dark" aria-label="Default select example" required id="statusField">
+                <select class="form-select p-3 text-dark" aria-label="Default select example" required id="statusField" name="status">
                   <option class="h6 text-dark" value="To Do">To Do</option>
                   <option class="h6 text-dark" value="In Progress">In Progress</option>
                   <option class="h6 text-dark" value="Done">Done</option>
                 </select>
                 <label for="date">Date *</label>
-                <input type="date" class="form-control mb-2 p-3" required id="date">
+                <input type="date" class="form-control mb-2 p-3" required id="date" name="date">
 
 
               </div>
               <div class="col-lg-6">
                 <div class="form-floating" style="height: 78%;">
-                  <textarea class="form-control" placeholder="Leave a comment here" id="description" style="height:100%"
+                  <textarea class="form-control" placeholder="Leave a comment here" name="description" id="description" style="height:100%"
                     required></textarea>
                   <label for="description" class="text-dark">Description *</label>
                 </div>
                 <label for="etiquette">Etiquette *</label>
-                <select class="form-select p-3 mb-2 text-dark" aria-label="Default select example" required id="bgField">
+                <select class="form-select p-3 mb-2 text-dark" aria-label="Default select example" required id="bgField" name="background">
                   <option class="h6 text-dark" value="white" style="background-color: white;">white</option>
                   <option class="h6 text-dark" value="linen" style="background-color: linen;">linen</option>
                   <option class="h6 text-dark" value="lightyellow" style="background-color: lightyellow;">lightyellow</option>
@@ -190,7 +174,7 @@
             <div class="d-flex justify-content-end mt-3">
               <button class="btn me-2 " id="cancel"
                 style="width: 80px;z-index:10 ;"  onclick="return false" >Cancel</button><!-- return to prevent reload page-->
-              <button class="btn" onclick="return false"  id="add" style="width: 80px;z-index:10 ;">Add</button>
+              <button  type="submit" class="btn"   id="add" style="width: 80px;z-index:10 ;">Add</button>
             </div>
           </form>
         </div>
