@@ -7,7 +7,6 @@ $bg = $_POST['background'];
 $date = $_POST['date'];
 $desc = $_POST['description'];
 // DATA BASE CONNRCTION 
-
 $connection = new mysqli('localhost','root','','Youcodescumboard');
 if($connection->connect_error){
  die('Connection Failed'.$connection->connect_error);
@@ -18,7 +17,7 @@ if($connection->connect_error){
  $statement->close();
  $connection->close();
 }
-//header('Location: http://localhost/sb_v2/');
+header('Location: http://localhost/sb_v2/');
 
 
 // $people_json = file_get_contents('user.json');

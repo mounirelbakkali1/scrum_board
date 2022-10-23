@@ -24,7 +24,8 @@ if($connection->connect_error){
  $statement->close();
  $connection->close();
 }
-//header('Location: http://localhost/sb_v2/');
+//var_dump("hello");
+header('Location: http://localhost/sb_v2/');
 
 
 // $people_json = file_get_contents('user.json');
